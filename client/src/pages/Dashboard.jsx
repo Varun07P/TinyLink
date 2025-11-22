@@ -17,9 +17,9 @@ export default function Dashboard() {
         const fullShortUrl = `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3000'}/${link.short_code}`;
         const query = searchQuery.toLowerCase();
         return (
-            link.short_code.toLowerCase().includes(query) ||
-            link.original_url.toLowerCase().includes(query) ||
-            fullShortUrl.toLowerCase().includes(query)
+            link.short_code?.toLowerCase().includes(query) ||
+            link.original_url?.toLowerCase().includes(query) ||
+            fullShortUrl?.toLowerCase().includes(query)
         );
     });
 
