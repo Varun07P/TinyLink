@@ -23,17 +23,7 @@ app.get('/healthz', (req, res) => {
 });
 
 // API Routes
-// app.use('/api', router);
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://tiny-link-4wcw0rzzw-varun07ps-projects.vercel.app"
-];
-
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
-
+app.use('/api', router);
 
 // Error Handling Middleware
 import { errorHandler } from './middleware/errorMiddleware.js';
