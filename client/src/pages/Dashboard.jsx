@@ -26,7 +26,16 @@ export default function Dashboard() {
     const fetchLinks = async () => {
         try {
             const res = await getLinks();
-            setLinks(res.data);
+            // Normalize data to handle potential column name mismatches (snake_case vs camelCase)
+            const normalizedLinks = res.data.map(link => ({
+                ...link,
+                short_code: link.short_code || link.shortCode,
+                original_url: link.original_url || link.originalUrl,
+                click_count: link.click_count || link.clickCount || 0,
+                last_clicked_at: link.last_clicked_at || link.lastClickedAt,
+                created_at: link.created_at || link.createdAt
+            }));
+            setLinks(normalizedLinks);
         } catch (err) {
             console.error("Failed to fetch links", err);
             toast.error("Failed to load links");

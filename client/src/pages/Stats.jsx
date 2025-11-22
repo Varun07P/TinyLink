@@ -13,7 +13,16 @@ export default function Stats() {
         const fetchStats = async () => {
             try {
                 const res = await getLinkStats(code);
-                setStats(res.data);
+                // Normalize data
+                const normalizedStats = {
+                    ...res.data,
+                    short_code: res.data.short_code || res.data.shortCode,
+                    original_url: res.data.original_url || res.data.originalUrl,
+                    click_count: res.data.click_count || res.data.clickCount || 0,
+                    last_clicked_at: res.data.last_clicked_at || res.data.lastClickedAt,
+                    created_at: res.data.created_at || res.data.createdAt
+                };
+                setStats(normalizedStats);
             } catch (err) {
                 // Only set error on initial load if we don't have stats yet
                 if (!stats) setError('Link not found or error fetching stats');
